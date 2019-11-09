@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+</head>
+<body>
+  <form action="https://newprod.zypher.co/contact/yugen/sendContact" method="POST" id="my_form">
+    <input type="text" name="fullName" placeholder="Full Name"><br><br>
+    <input type="email" name="email" placeholder="Email"><br><br>
+    <input type="number" name="phone" placeholder="Phone"><br><br>
+    <input type="text" name="AgentName" placeholder="Agent Name">
+<!-- activation toggle -->
+    <p>Activating status</p>
+    <div onclick="myFunction()"> <input type="radio" name="activation" value="now"> Activating now<br>
+    </div>
+
+    <div onclick="myFunction()">
+      <input type="radio" name="activation" value="later"> Activating later<br>
+    </div>
+<!-- plan select -->
+    <p>Interested plan</p>
+    <input type="radio" name="interestedPlan" value="lorem">lorem<br>
+    <input type="radio" name="interestedPlan" value="ipsum"> ipsum<br>
+    <div id="myDIV"> <input type="date" name="followupon"> </div>
+
+
+    <h3>Additional details</h3>
+    <h5>This helps us serve you better</h5>
+
+    <input type="checkbox" name="Reader" value="reader">Are you a reader?<br><br>
+
+    <input type="number" name="readingPerWeek" placeholder="Reading hours per week"><br><br>
+
+    <input type="text" name="genres_interested" placeholder="(Favourite Genres(magazines,authors,regional)"><br><br>
+    
+    <input type="checkbox" name="kids" value="kids">Do you have kids?<br><br>
+    
+    <input type="text" name="area" placeholder="location">
+    
+    <h3>Gender</h3>
+    <input type="radio" name="gender" value="male">Male<br>
+    <input type="radio" name="gender" value="female">Female<br>
+    <input type="radio" name="gender" value="Nan">Do not wish to specify<br><br>
+      
+    <input type="submit" placeholder="submit">
+  </form>
+ 
+ <script>
+    function myFunction() {
+      var x = document.getElementById("myDIV");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+      } else {
+        x.style.display = "none";
+      }
+    }
+  </script>
+
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+      <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous">
+  </script>
+  
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  
+  <script>
+    
+$("#my_form").submit(function(event){
+	event.preventDefault(); //prevent default action 
+	var post_url = $(this).attr("action"); //get form action url
+  var request_method = $(this).attr("method"); //get form GET/POST method
+  var form_data = $(this).serialize(); //Encode form elements for submission
+  console.log(form_data);
+	$.ajax({
+		url : post_url,
+		type: request_method,
+    data : form_data,
+    dataType: "json"
+	}).done(function(response){
+    console.log(response);
+    if(response)
+    {
+      Swal.fire(
+        'Good job!',
+        'You clicked the button!',
+        'success'
+      )
+    }
+	}).fail(function(){
+    Swal.fire(
+      'Oh no!',
+      'Please try again',
+      'fail'
+    )
+  });
+});
+  </script>
+
+</body>
+
+</html>
